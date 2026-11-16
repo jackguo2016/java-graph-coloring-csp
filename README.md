@@ -1,7 +1,7 @@
 # Advanced Graph Coloring Solver: A CSP Approach with AC-3, MRV, and LCV Heuristics
 
 ## Project Overview
-This Java-based project implements an advanced solution to the Graph Coloring Problem, a classic NP-hard optimization challenge in computer science. The solver utilizes sophisticated Constraint Satisfaction Problem (CSP) techniques, including the AC-3 algorithm for constraint propagation and intelligent variable and value ordering heuristics.
+This Java coursework project searches for a coloring that uses a fixed number of colors and gives adjacent vertices different colors. The color budget comes from the input file. The code explores backtracking with AC-3 propagation, minimum remaining values (MRV), and a color-ordering heuristic.
 
 ## Key Components
 1. **Node Class**: 
@@ -38,14 +38,20 @@ This Java-based project implements an advanced solution to the Graph Coloring Pr
 - **Extensible Design**: The modular structure allows for easy integration of additional CSP techniques or problem-specific heuristics.
 
 ## Usage Instructions
-1. Prepare an input file following the format specified in the provided test files (e.g., `test.txt`).
-2. Modify the file path in `Main.java` (line 19) to point to your input file.
-3. Run `Main.java` to execute the solver.
-4. The program will output the coloring result for all nodes if a solution is found.
+
+The program reads [`src/test4.txt`](src/test4.txt) by default. The file starts with header comments and a color budget such as `colors = 4`, followed by an edge list such as `0,1`. Use JDK 9 or later and run these commands from the repository root. The export flag is needed because the source imports a JDK-internal package.
+
+```bash
+mkdir -p build
+javac -encoding UTF-8 --add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED -d build src/Main.java src/Node.java
+java -cp build Main
+```
+
+The input path is set in [`src/Main.java`](src/Main.java). The program has no input-path argument. It prints the nodes and then reports a coloring or that its search found none. The bundled `test4.txt` run ends with `There is no solution for this graph input.` Earlier prototypes are in [`CSPZiyan`](https://github.com/jackguo2016/CSPZiyan) and [`CSPZiyan1`](https://github.com/jackguo2016/CSPZiyan1).
 
 ## Testing and Validation
 - Comprehensive test cases provided in `test#.txt` files.
-- JUnit tests implemented in `MainTest.java` and `NodeTest.java` ensure the correctness of core functionalities.
+- The JUnit 5 tests in `MainTest.java` and `NodeTest.java` cover lookup helpers and node initialization.
 
 ## Performance Analysis
 The integration of AC-3, MRV, and LCV heuristics significantly enhances the solver's efficiency:
@@ -53,7 +59,7 @@ The integration of AC-3, MRV, and LCV heuristics significantly enhances the solv
 - MRV minimizes branching factor in the search tree.
 - LCV maximizes future solving flexibility.
 
-These techniques combine to provide a robust solution capable of handling complex graph coloring instances efficiently.
+The repository includes example graphs. It does not contain a performance benchmark.
 
 ## Future Enhancements
 - Implementation of additional CSP techniques such as forward checking or conflict-directed backjumping.
